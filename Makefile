@@ -1,6 +1,6 @@
 RUN = docker-compose run --rm
 
-test: setup/bundler
+test: up setup/bundler
 	$(MAKE) test/mysql test/postgres test/sqlite
 
 
@@ -21,7 +21,9 @@ setup/bundler:
 
 
 up: setup/volumes
-	docker-compose up
+	docker-compose up -d
+	echo 'wait db initialization'
+	sleep 10
 
 down:
 	docker-compose down
